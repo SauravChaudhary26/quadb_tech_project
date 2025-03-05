@@ -8,7 +8,7 @@ function AppContent() {
   const theme = useSelector((state) => state.theme.theme); // Get theme from Redux
 
   return (
-    <div className={theme === "dark" ? "dark bg-gray-900 text-white" : "bg-white text-gray-900"}>
+    <div className={theme === "dark" ? "dark bg-black text-white" : "bg-white text-gray-900"}>
       <div className="flex flex-col h-screen">
         <Navbar />
         <div className="flex flex-grow">

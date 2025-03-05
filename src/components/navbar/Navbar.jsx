@@ -3,28 +3,37 @@ import { toggleSidebar } from "../../redux/UiSlice";
 import { toggleTheme } from "../../redux/ThemeSlice";
 import { FaBars, FaSearch, FaTh, FaMoon, FaSun } from "react-icons/fa";
 import logo from "../../../public/Images/logo.png"; // ✅ Updated import path
+import menu from "../../../public/Images/menu.png"; // ✅ Updated import path
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme);
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow p-4 flex items-center justify-between">
+    <nav
+      className={`p-4 flex items-center justify-between shadow transition-colors ${
+        theme === "light" ? "bg-white text-gray-900" : "bg-black text-white"
+      }`}
+    >
       {/* Left Side - Sidebar Toggle & Logo */}
       <div className="flex items-center space-x-4">
-        <button onClick={() => dispatch(toggleSidebar())} className="text-gray-700 dark:text-white text-xl">
-          <FaBars />
+        <button
+          onClick={() => dispatch(toggleSidebar())}
+          className="text-inherit text-xl"
+        >
+        <FaBars className="text-inherit text-[25px] scale-100" />
+
         </button>
-        <img src={logo} alt="Logo" className="h-8 w-auto" /> {/* ✅ Added Logo */}
+        <img src={logo} alt="Logo" className="h-9 w-auto" /> {/* ✅ Adjusted Size */}
       </div>
 
       {/* Right Side - Search, Grid, Theme Toggle */}
       <div className="flex items-center space-x-4">
-        <FaSearch className="text-gray-600 dark:text-white text-lg" />
-        <FaTh className="text-gray-600 dark:text-white text-lg" />
+        <FaSearch className="text-inherit text-lg" />
+        <FaTh className="text-inherit text-lg" />
         <button onClick={() => dispatch(toggleTheme())}>
           {theme === "light" ? (
-            <FaMoon className="text-gray-600 text-lg" />
+            <FaMoon className="text-gray-900 text-lg" />
           ) : (
             <FaSun className="text-yellow-400 text-lg" />
           )}
