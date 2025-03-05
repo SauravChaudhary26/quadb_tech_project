@@ -1,48 +1,86 @@
 import { useSelector } from "react-redux";
+import {
+  FaRegCalendar,
+  FaStar,
+  FaCalendarCheck,
+  FaUser,
+  FaTasks,
+} from "react-icons/fa";
 
 const Sidebar = () => {
   const isSidebarOpen = useSelector((state) => state.ui.isSidebarOpen);
-  const theme = useSelector((state) => state.theme.theme); // Get theme from Redux
 
   return (
     <aside
-      className={`h-screen p-4 transition-all ${
+      className={`transition-all h-screen ${
         isSidebarOpen ? "w-64" : "w-0 overflow-hidden"
-      } ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}`}
+      } bg-white  text-black dark:bg-black dark:text-white p-6`}
     >
+      {/* Render content only if open */}
       {isSidebarOpen && (
-        <div>
+        <div className="flex flex-col h-full">
           {/* Profile Section */}
-          <div className="flex flex-col items-center mb-4">
+          <div className="flex flex-col items-center mb-6">
             <img
               src="https://via.placeholder.com/80"
               alt="Profile"
-              className="rounded-full w-20 h-20"
+              className="rounded-full w-20 h-20 object-cover"
             />
-            <p className="mt-2 font-semibold">Hey, ABCD</p>
+            <p className="mt-2 text-lg font-semibold">Hey, ABCD</p>
           </div>
 
-          {/* Sidebar Menu */}
-          <ul className="space-y-2">
-            <li className={`p-2 rounded ${theme === "dark" ? "bg-green-700 text-white" : "bg-green-200 text-black"}`}>
-              📌 All Tasks
-            </li>
-            <li>📅 Today</li>
-            <li>⭐ Important</li>
-            <li>📆 Planned</li>
-            <li>📑 Assigned to Me</li>
-            <li className="mt-4">➕ Add list</li>
-          </ul>
+          {/* Task Categories */}
+          <nav className="flex-1">
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center space-x-2 font-medium bg-[#9CD9B8] dark:bg-green-700 p-2 rounded">
+                <FaTasks className="text-white" />
+                <span>All Tasks</span>
+              </li>
+              <li className="flex items-center space-x-2 cursor-pointer">
+                <FaRegCalendar className="text-[#9CD9B8] dark:text-green-700" />
+                <span>Today</span>
+              </li>
+              <li className="flex items-center space-x-2 cursor-pointer">
+                <FaStar className="text-[#9CD9B8] dark:text-green-700" />
+                <span>Important</span>
+              </li>
+              <li className="flex items-center space-x-2 cursor-pointer">
+                <FaCalendarCheck className="text-[#9CD9B8] dark:text-green-700" />
+                <span>Planned</span>
+              </li>
+              <li className="flex items-center space-x-2 cursor-pointer">
+                <FaUser className="text-[#9CD9B8] dark:text-green-700" />
+                <span>Assigned to Me</span>
+              </li>
+            </ul>
 
-          {/* Task Stats */}
-          <div
-            className={`mt-6 p-4 rounded shadow ${
-              theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
-            }`}
-          >
-            <p className="text-sm">Today Tasks</p>
-            <p className="text-xl font-bold">11</p>
-            <div className={`w-full h-24 rounded mt-2 ${theme === "dark" ? "bg-gray-700" : "bg-gray-200"}`}></div>
+            {/* Add List */}
+            <button className="mt-6 inline-flex items-center space-x-2 text-black dark:text-white">
+              <span className="text-xl">➕</span>
+              <span className="font-semibold">Add list</span>
+            </button>
+          </nav>
+
+          {/* Task Stats Card */}
+          <div className="mt-6 p-4 bg-white dark:bg-black rounded shadow text-center">
+            <p className="text-sm text-gray-500 dark:text-gray-300">Today Tasks</p>
+            <p className="text-2xl font-bold text-black dark:text-white">11</p>
+
+            {/* Pie Chart Placeholder */}
+            <div className="mt-4 relative flex flex-col items-center">
+              {/* Outer ring */}
+              <div className="w-24 h-24 rounded-full border-8 border-[#9CD9B8] dark:border-green-700 border-t-transparent" />
+              <div className="mt-3 text-sm flex space-x-4">
+                <div className="flex items-center space-x-1">
+                  <span className="inline-block w-3 h-3 bg-[#9CD9B8] dark:bg-green-700 rounded-full" />
+                  <span>Pending</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <span className="inline-block w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full" />
+                  <span>Done</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

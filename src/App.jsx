@@ -4,7 +4,11 @@ import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./pages/Home";
 
+
 function AppContent() {
+
+
+  
   const theme = useSelector((state) => state.theme.theme); // Get theme from Redux
 
   return (
