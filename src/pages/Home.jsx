@@ -1,25 +1,18 @@
-const Home = () => {
+// Home.jsx
+import TaskForm from "../components/task/TaskForm";
+import TaskList from "../components/task/TaskList";
+import TaskStats from "../components/task/TaskStats";
+
+function Home() {
   return (
-    <div className="flex-grow p-6">
-      <h2 className="text-xl font-bold">To Do</h2>
-      <input type="text" placeholder="Add a Task" className="border p-2 w-full mt-2" />
-      <ul className="mt-4">
-        <li className="flex items-center justify-between p-2 border-b">
-          <span>Buy groceries</span>
-          <span>☆</span>
-        </li>
-        <li className="flex items-center justify-between p-2 border-b">
-          <span>Finish project report</span>
-          <span>★</span>
-        </li>
-      </ul>
-      <h3 className="mt-6 font-bold">Completed</h3>
-      <ul>
-        <li className="line-through">✅ Read a book</li>
-        <li className="line-through">✅ Clean the house</li>
-      </ul>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-800 p-4">
+      <div className="flex flex-col gap-4">
+        <TaskForm />
+        <TaskList />
+        <TaskStats />
+      </div>
     </div>
   );
-};
+}
 
 export default Home;

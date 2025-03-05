@@ -1,9 +1,21 @@
-import React from 'react'
+// src/components/Task/TaskList.jsx
+import { useSelector } from "react-redux";
+import TaskItem from "./TaskItem";
 
-const TaskList = () => {
+function TaskList() {
+  const tasks = useSelector((state) => state.tasks);
+
+  if (tasks.length === 0) {
+    return <p className="p-4 text-gray-500">No tasks available. Add one!</p>;
+  }
+
   return (
-    <div>TaskList</div>
-  )
+    <div className="p-4">
+      {tasks.map((task) => (
+        <TaskItem key={task.id} task={task} />
+      ))}
+    </div>
+  );
 }
 
-export default TaskList
+export default TaskList;

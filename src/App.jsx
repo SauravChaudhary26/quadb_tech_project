@@ -1,25 +1,16 @@
+// App.jsx
 import { Provider, useSelector } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import store from "./redux/Store";
-import Navbar from "./components/navbar/Navbar";
-import Sidebar from "./components/sidebar/Sidebar";
-import Home from "./pages/Home";
-
+import Layout from "./Layout";
 
 function AppContent() {
-
-
-  
-  const theme = useSelector((state) => state.theme.theme); // Get theme from Redux
-
+  const theme = useSelector((state) => state.theme.theme);
   return (
     <div className={theme === "dark" ? "dark bg-black text-white" : "bg-white text-gray-900"}>
-      <div className="flex flex-col h-screen">
-        <Navbar />
-        <div className="flex flex-grow">
-          <Sidebar />
-          <Home />
-        </div>
-      </div>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
     </div>
   );
 }
