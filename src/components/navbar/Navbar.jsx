@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar } from "../../redux/UiSlice";
 import { toggleTheme } from "../../redux/ThemeSlice";
 import { FaBars, FaSearch, FaTh, FaMoon, FaSun } from "react-icons/fa";
-import logo from "../../../public/Images/logo.png"; // ✅ Updated import path
-import menu from "../../../public/Images/menu.png"; // ✅ Updated import path
+import logo from "../../assets/logo.png"; // ✅ Updated import path
+ 
 
 const Navbar = () => {
   const dispatch = useDispatch();
