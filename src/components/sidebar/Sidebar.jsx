@@ -1,5 +1,5 @@
 // src/components/Task/Sidebar.jsx
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   FaRegCalendar,
   FaStar,
@@ -9,13 +9,16 @@ import {
 } from "react-icons/fa";
 import profile from "../../assets/profile1.jpg";
 import Stats from "../Stats";
+import { setFilter } from "../../redux/uiSlice"; // Ensure correct casing here
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const isSidebarOpen = useSelector((state) => state.ui.isSidebarOpen);
   const theme = useSelector((state) => state.theme.theme);
+  const filter = useSelector((state) => state.ui.filter);
   const isLight = theme === "light";
 
-  // When open, apply right border and rounded right corners.
+  // When open, apply right border and right rounded corners.
   // Height is set to 90vh for a slightly smaller appearance.
   const containerClass = `transition-all h-[90vh] ${
     isSidebarOpen
@@ -23,11 +26,23 @@ const Sidebar = () => {
       : "w-0 overflow-hidden"
   } ${isLight ? "bg-white text-black" : "bg-black text-white"}`;
 
-  // Accent colors for task item background and icons
-  const taskItemClass = isLight ? "bg-[#9CD9B8]" : "bg-green-700";
+  // Icon color class for non-active categories.
   const iconClass = isLight ? "text-[#9CD9B8]" : "text-green-700";
   const listItemBase =
     "flex items-center space-x-2 cursor-pointer font-bold text-base py-1 px-2 transition-transform hover:scale-105";
+
+  // Define the available categories.
+  const categories = [
+    { label: "All Tasks", value: "all", icon: <FaTasks className="text-white" /> },
+    { label: "Today", value: "today", icon: <FaRegCalendar className={iconClass} /> },
+    { label: "Important", value: "important", icon: <FaStar className={iconClass} /> },
+    { label: "Planned", value: "planned", icon: <FaCalendarCheck className={iconClass} /> },
+    { label: "Assigned to Me", value: "assigned", icon: <FaUser className={iconClass} /> },
+  ];
+
+  const handleCategoryClick = (value) => {
+    dispatch(setFilter(value));
+  };
 
   return (
     <aside className={containerClass}>
@@ -46,28 +61,18 @@ const Sidebar = () => {
           {/* Task Categories */}
           <nav className="flex-1">
             <ul className="space-y-2 text-sm">
-              <li
-                className={`flex items-center space-x-2 cursor-pointer font-bold text-base ${taskItemClass} p-2 rounded transition-transform hover:scale-105`}
-              >
-                <FaTasks className="text-white" />
-                <span>All Tasks</span>
-              </li>
-              <li className={listItemBase}>
-                <FaRegCalendar className={iconClass} />
-                <span>Today</span>
-              </li>
-              <li className={listItemBase}>
-                <FaStar className={iconClass} />
-                <span>Important</span>
-              </li>
-              <li className={listItemBase}>
-                <FaCalendarCheck className={iconClass} />
-                <span>Planned</span>
-              </li>
-              <li className={listItemBase}>
-                <FaUser className={iconClass} />
-                <span>Assigned to Me</span>
-              </li>
+              {categories.map((cat) => (
+                <li
+                  key={cat.value}
+                  className={`${listItemBase} p-2 rounded transition-transform hover:scale-105 ${
+                    filter === cat.value ? "bg-green-500 text-white" : ""
+                  }`}
+                  onClick={() => handleCategoryClick(cat.value)}
+                >
+                  {cat.icon}
+                  <span>{cat.label}</span>
+                </li>
+              ))}
             </ul>
           </nav>
 

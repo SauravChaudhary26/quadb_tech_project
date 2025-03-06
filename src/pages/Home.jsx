@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import TaskForm from "../components/task/TaskForm";
@@ -6,8 +7,7 @@ import TaskDetailsSidebar from "../components/task/TaskDetailsSidebar";
 
 function Home() {
   const theme = useSelector((state) => state.theme.theme);
-  const bgClass = theme === "dark" ? "bg-black text-white" : "bg-white text-gray-900";
-
+  const bgClass = theme === "light" ? "bg-white text-gray-900" : "bg-black text-white";
   const [selectedTask, setSelectedTask] = useState(null);
 
   const handleTaskSelect = (task) => {
@@ -21,17 +21,10 @@ function Home() {
   return (
     <div className={`${bgClass} h-full p-4`}>
       <div className="flex h-full gap-4">
-        {/* Left Column: TaskForm and TaskList */}
         <div className={`${selectedTask ? "w-2/3" : "w-full"} flex flex-col gap-4`}>
-          <div className="flex-shrink-0">
-            <TaskForm />
-          </div>
-          <div className="flex-grow overflow-auto">
-            <TaskList onTaskSelect={handleTaskSelect} />
-          </div>
+          <TaskForm />
+          <TaskList onTaskSelect={handleTaskSelect} />
         </div>
-
-        {/* Right Column: TaskDetailsSidebar (only when a task is selected) */}
         {selectedTask && (
           <div className="w-1/3">
             <TaskDetailsSidebar onClose={handleCloseDetails} task={selectedTask} />

@@ -1,42 +1,43 @@
-// WeatherWidget.jsx
-import { useState, useEffect } from "react";
-import { getWeatherByCoords } from "../../services/Api";
+// src/components/Weather/WeatherWidget.jsx
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchWeather } from '../../redux/weatherSlice';
 
 function WeatherWidget() {
-  const [weather, setWeather] = useState(null);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.weather);
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setError("Geolocation is not supported by your browser");
+      console.error("Geolocation is not supported by your browser");
       return;
     }
 
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
+      (position) => {
         const { latitude, longitude } = position.coords;
-        try {
-          const data = await getWeatherByCoords(latitude, longitude);
-          setWeather(data);
-        } catch (err) {
-          setError("Failed to fetch weather data");
-        }
+        dispatch(fetchWeather({ lat: latitude, lon: longitude }));
       },
-      (error) => {
-        setError("Unable to retrieve your location");
+      (err) => {
+        console.error("Error obtaining geolocation:", err);
       }
     );
-  }, []);
+  }, [dispatch]);
 
-  if (error) {
-    return <div>{error}</div>;
+  if (loading) {
+    return <div>Loading weather...</div>;
   }
 
-  return weather ? (
-    <div>🌡️ {weather.main.temp}°C</div>
-  ) : (
-    <div>Loading...</div>
-  );
+  if (error) {
+    // Display error.message if available, else the error value.
+    return <div>Error: {error.message || error}</div>;
+  }
+
+  if (!data) {
+    return <div>No weather data available</div>;
+  }
+
+  return <div>🌡️ {data.main.temp}°C</div>;
 }
 
 export default WeatherWidget;

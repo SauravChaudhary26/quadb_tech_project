@@ -1,6 +1,7 @@
 // src/components/Task/TaskDetailsSidebar.jsx
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeTask } from "../../redux/TaskSlice";
 import {
   FaTimes,
   FaTrash,
@@ -12,12 +13,20 @@ import {
 } from "react-icons/fa";
 
 function TaskDetailsSidebar({ onClose, task }) {
+  const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme);
   const isLight = theme === "light";
 
+  const handleDelete = () => {
+    if (task && task.id) {
+      dispatch(removeTask(task.id));
+      onClose();
+    }
+  };
+
   return (
     <div
-      className={`w-full   h-[81vh] border-l border-green-500 rounded-l-lg shadow-xl overflow-auto z-50 transition-all duration-300 ${
+      className={`w-full h-full border-l border-green-500 rounded-r-lg shadow-xl overflow-auto z-50 transition-all duration-300 ${
         isLight ? "bg-white text-black" : "bg-black text-white"
       }`}
     >
@@ -34,27 +43,22 @@ function TaskDetailsSidebar({ onClose, task }) {
 
         {/* Body */}
         <div className="flex-1 p-4 space-y-4">
-          {/* Add Step */}
           <div className="flex items-center gap-2 border-b border-green-500 pb-3 cursor-pointer transition-colors rounded hover:bg-green-100">
             <FaPlus className={`${isLight ? "text-green-600" : "text-green-400"}`} />
             <span>Add Step</span>
           </div>
-          {/* Set Reminder */}
           <div className="flex items-center gap-2 border-b border-green-500 pb-3 cursor-pointer transition-colors rounded hover:bg-green-100">
             <FaBell className={`${isLight ? "text-green-600" : "text-green-400"}`} />
             <span>Set Reminder</span>
           </div>
-          {/* Add Due Date */}
           <div className="flex items-center gap-2 border-b border-green-500 pb-3 cursor-pointer transition-colors rounded hover:bg-green-100">
             <FaCalendarAlt className={`${isLight ? "text-green-600" : "text-green-400"}`} />
             <span>Add Due Date</span>
           </div>
-          {/* Repeat */}
           <div className="flex items-center gap-2 border-b border-green-500 pb-3 cursor-pointer transition-colors rounded hover:bg-green-100">
             <FaSyncAlt className={`${isLight ? "text-green-600" : "text-green-400"}`} />
             <span>Repeat</span>
           </div>
-          {/* Add Notes */}
           <div className="flex items-center gap-2 border-b border-green-500 pb-3 cursor-pointer transition-colors rounded hover:bg-green-100">
             <span className={`${isLight ? "text-gray-500" : "text-gray-300"}`}>Add Notes</span>
           </div>
@@ -71,7 +75,10 @@ function TaskDetailsSidebar({ onClose, task }) {
           <span className={`${isLight ? "text-sm text-gray-500" : "text-sm text-gray-400"}`}>
             Created Today
           </span>
-          <FaTrash className="cursor-pointer text-red-500 hover:text-red-700 transition-colors" />
+          <FaTrash
+            className="cursor-pointer text-red-500 hover:text-red-700 transition-colors"
+            onClick={handleDelete}
+          />
         </div>
       </div>
     </div>
