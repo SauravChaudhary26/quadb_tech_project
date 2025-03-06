@@ -49,3 +49,39 @@ REACT_APP_API_KEY=your_openweathermap_api_key
 npm start
 ```
 The app will be available at `http://localhost:5173`.
+
+
+
+---
+## Folder Structure
+```
+📂 src
+ ├── 📂 components
+ │    ├── 📂 navbar
+ │    │    ├── Navbar.jsx
+ │    ├── 📂 sidebar
+ │    │    ├── Sidebar.jsx
+ │    ├── 📂 task
+ │    │    ├── TaskForm.jsx
+ │    │    ├── TaskList.jsx
+ │    │    ├── TaskItem.jsx
+ │    │    ├── TaskDetailsSidebar.jsx
+ │    ├── 📂 weather
+ │    │    ├── WeatherWidget.jsx
+ │
+ ├── 📂 pages
+ │    ├── Home.jsx
+ │    ├── Login.jsx
+ │    ├── Register.jsx
+ │
+ ├── 📂 redux
+ │    ├── AuthSlice.js
+ │    ├── TaskSlice.js
+ │    ├── ThemeSlice.js
+ │    ├── UiSlice.js
+ │    ├── Store.js
+ │
+ ├── Layout.jsx
+ ├── App.jsx
+ ├── index.js
+```
