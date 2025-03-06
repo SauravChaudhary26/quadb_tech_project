@@ -7,24 +7,21 @@ function TaskList({ onTaskSelect }) {
   const filter = useSelector((state) => state.ui.filter);
   const view = useSelector((state) => state.ui.view);
 
-  // Filtering logic (adjust based on your task properties)
   const filteredTasks = tasks.filter((task) => {
     if (filter === "all") return true;
     if (filter === "today") {
-      // Assume task.createdAt is a Date string; filter tasks created today.
+      // Check if the task has a dueDate and it matches today's date
+      if (!task.dueDate) return false;
       const today = new Date().toDateString();
-      return new Date(task.createdAt).toDateString() === today;
+      return new Date(task.dueDate).toDateString() === today;
     }
     if (filter === "important") {
-      // Assume tasks with high priority are important.
-      return task.priority === "High";
+      return task.important === true;
     }
     if (filter === "planned") {
-      // Assume tasks with a 'planned' property are planned.
       return task.planned === true;
     }
     if (filter === "assigned") {
-      // Assume tasks with 'assignedTo' equal to "me" are assigned to the user.
       return task.assignedTo === "me";
     }
     return true;
@@ -38,11 +35,7 @@ function TaskList({ onTaskSelect }) {
     return (
       <div className="grid grid-cols-2 gap-4 p-4">
         {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onClick={() => onTaskSelect(task)}
-          />
+          <TaskItem key={task.id} task={task} onClick={() => onTaskSelect(task)} />
         ))}
       </div>
     );
@@ -50,11 +43,7 @@ function TaskList({ onTaskSelect }) {
     return (
       <div className="p-4">
         {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onClick={() => onTaskSelect(task)}
-          />
+          <TaskItem key={task.id} task={task} onClick={() => onTaskSelect(task)} />
         ))}
       </div>
     );

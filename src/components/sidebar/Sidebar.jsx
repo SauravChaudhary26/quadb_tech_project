@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import profile from "../../assets/profile1.jpg";
 import Stats from "../Stats";
-import { setFilter } from "../../redux/uiSlice"; // Ensure correct casing here
+import { setFilter } from "../../redux/UiSlice"; // Ensure correct casing
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Sidebar = () => {
   const listItemBase =
     "flex items-center space-x-2 cursor-pointer font-bold text-base py-1 px-2 transition-transform hover:scale-105";
 
-  // Define the available categories.
+  // Define available categories.
   const categories = [
     { label: "All Tasks", value: "all", icon: <FaTasks className="text-white" /> },
     { label: "Today", value: "today", icon: <FaRegCalendar className={iconClass} /> },

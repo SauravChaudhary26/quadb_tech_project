@@ -1,3 +1,4 @@
+// src/redux/TaskSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const taskSlice = createSlice({
@@ -13,8 +14,16 @@ const taskSlice = createSlice({
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return updatedTasks;
     },
+    updateTask: (state, action) => {
+      const { id, changes } = action.payload;
+      const index = state.findIndex((task) => task.id === id);
+      if (index !== -1) {
+        state[index] = { ...state[index], ...changes };
+        localStorage.setItem("tasks", JSON.stringify(state));
+      }
+    },
   },
 });
 
-export const { addTask, removeTask } = taskSlice.actions;
+export const { addTask, removeTask, updateTask } = taskSlice.actions;
 export default taskSlice.reducer;
