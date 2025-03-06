@@ -44,6 +44,18 @@ function TaskDetailsSidebar({ onClose, task }) {
     }
   };
 
+  // Toggle completed flag
+  const handleToggleComplete = () => {
+    if (task && task.id) {
+      dispatch(
+        updateTask({
+          id: task.id,
+          changes: { completed: !task.completed },
+        })
+      );
+    }
+  };
+
   // Delete task and close sidebar
   const handleDelete = () => {
     if (task && task.id) {
@@ -231,14 +243,22 @@ function TaskDetailsSidebar({ onClose, task }) {
 
         {/* Footer */}
         <div className="border-t border-green-500 p-4 flex items-center justify-between">
-          <FaTimes
-            className={`cursor-pointer transition-colors ${
-              isLight
-                ? "text-gray-600 hover:text-red-500"
-                : "text-gray-300 hover:text-red-500"
-            }`}
-            onClick={onClose}
-          />
+          <div className="flex items-center space-x-2">
+            <FaTimes
+              className={`cursor-pointer transition-colors ${
+                isLight
+                  ? "text-gray-600 hover:text-red-500"
+                  : "text-gray-300 hover:text-red-500"
+              }`}
+              onClick={onClose}
+            />
+            <button
+              onClick={handleToggleComplete}
+              className="px-2 py-1 text-sm rounded bg-green-500 hover:bg-green-600 text-white transition-colors"
+            >
+              {task?.completed ? "Undo" : "Complete"}
+            </button>
+          </div>
           <span
             className={`${
               isLight ? "text-sm text-gray-500" : "text-sm text-gray-400"
@@ -256,4 +276,17 @@ function TaskDetailsSidebar({ onClose, task }) {
   );
 }
 
+// Add handleToggleComplete function above return:
+const handleToggleComplete = () => {
+  if (task && task.id) {
+    dispatch(
+      updateTask({
+        id: task.id,
+        changes: { completed: !task.completed },
+      })
+    );
+  }
+};
+
 export default TaskDetailsSidebar;
+

@@ -1,4 +1,3 @@
-// src/components/Task/Stats.jsx
 import React from "react";
 import { useSelector } from "react-redux";
 import { Pie } from "react-chartjs-2";
@@ -8,18 +7,20 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Stats() {
-  // Get tasks data from Redux store
-  const tasks = useSelector((state) => state.tasks);
+  // Get tasks array correctly from Redux store
+  const tasks = useSelector((state) => state.tasks.tasks); // ✅ Fix: Access tasks array correctly
+
+  // Ensure tasks is always an array to prevent runtime errors
+  const validTasks = Array.isArray(tasks) ? tasks : [];
 
   // Count tasks by status (assuming each task has a 'done' property)
-  const pendingCount = tasks.filter(task => !task.done).length;
-  const doneCount = tasks.filter(task => task.done).length;
+  const pendingCount = validTasks.filter((task) => !task.done).length;
+  const doneCount = validTasks.filter((task) => task.done).length;
 
   const data = {
     labels: ["Pending", "Done"],
     datasets: [
       {
-        // Use green shades for both slices
         data: [pendingCount, doneCount],
         backgroundColor: ["#4ade80", "#16a34a"],
         borderColor: ["#4ade80", "#16a34a"],
@@ -28,8 +29,6 @@ function Stats() {
     ],
   };
 
-  // Chart options – true 3D pie charts are not natively supported by Chart.js,
-  // but we enable scale and rotation animations to add visual depth.
   const options = {
     maintainAspectRatio: false,
     animation: {
@@ -40,7 +39,7 @@ function Stats() {
       legend: {
         position: "bottom",
         labels: {
-          color: "#6B7280", // Gray tone for legend text
+          color: "#6B7280",
         },
       },
     },
@@ -54,7 +53,7 @@ function Stats() {
         <div className="flex-1 text-sm">
           <ul className="space-y-1">
             <li className="flex justify-between">
-              <span>Pending</span> 
+              <span>Pending</span>
               <span>{pendingCount}</span>
             </li>
             <li className="flex justify-between">
