@@ -16,6 +16,16 @@ This is a feature-rich To-Do application built using **React, Redux, Tailwind CS
 
 ## Screenshots
 
+## Screenshots
+
+![Screenshot](https://github.com/harshvyas0803/quadbTech/blob/main/src/assets/1.png)
+![Screenshot](https://github.com/harshvyas0803/quadbTech/blob/main/src/assets/2.png)
+![Screenshot](https://github.com/harshvyas0803/quadbTech/blob/main/src/assets/3.png)
+![Screenshot](https://github.com/harshvyas0803/quadbTech/blob/main/src/assets/4.png)
+![Screenshot](https://github.com/harshvyas0803/quadbTech/blob/main/src/assets/5.png)
+![Screenshot](https://github.com/harshvyas0803/quadbTech/blob/main/src/assets/6.png)
+ 
+
 
 ## Tech Stack
 - **Frontend:** React, Redux (with Redux Thunk/Saga), Tailwind CSS
