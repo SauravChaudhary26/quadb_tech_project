@@ -1,5 +1,5 @@
 import React from "react";
-import WeatherWidget from "../Weather/WeatherWidget";
+import WeatherWidget from "../weather/WeatherWidget";
 
 function TaskItem({ task, onClick }) {
   return (
