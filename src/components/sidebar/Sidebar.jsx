@@ -8,13 +8,14 @@ import {
   FaTasks,
 } from "react-icons/fa";
 import profile from "../../assets/profile1.jpg";
+import Stats from "../Stats";
 
 const Sidebar = () => {
   const isSidebarOpen = useSelector((state) => state.ui.isSidebarOpen);
   const theme = useSelector((state) => state.theme.theme);
   const isLight = theme === "light";
 
-  
+  // When open, apply right border and rounded right corners.
   // Height is set to 90vh for a slightly smaller appearance.
   const containerClass = `transition-all h-[90vh] ${
     isSidebarOpen
@@ -84,46 +85,16 @@ const Sidebar = () => {
             </button>
           </div>
 
-          {/* Pie Chart Section */}
+          {/* Stats Section */}
           <div className="mt-4">
             <div
               className={`p-3 rounded shadow text-center ${
-                isLight ? "bg-white" : "bg-gray-800"
+                isLight ? "bg-white" : "bg-black"
               }`}
             >
-              <p className="text-sm text-gray-500">Today Tasks</p>
-              <p
-                className={`text-xl font-bold ${
-                  isLight ? "text-black" : "text-white"
-                }`}
-              >
-                11
-              </p>
-              {/* Pie Chart Placeholder */}
-              <div className="mt-3 flex flex-col items-center">
-                <div
-                  className={`w-20 h-20 rounded-full border-6 border-t-transparent ${
-                    isLight ? "border-[#9CD9B8]" : "border-green-700"
-                  }`}
-                />
-                <div className="mt-2 text-sm flex space-x-3">
-                  <div className="flex items-center space-x-1">
-                    <span
-                      className={`inline-block w-3 h-3 rounded-full ${
-                        isLight ? "bg-[#9CD9B8]" : "bg-green-700"
-                      }`}
-                    />
-                    <span>Pending</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <span className="inline-block w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600" />
-                    <span>Done</span>
-                  </div>
-                </div>
-              </div>
+              <Stats />
             </div>
           </div>
-
         </div>
       )}
     </aside>
