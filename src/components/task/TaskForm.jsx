@@ -27,8 +27,8 @@ function TaskForm() {
   };
 
   return (
-    <form 
-      onSubmit={handleSubmit} 
+    <form
+      onSubmit={handleSubmit}
       className="flex flex-col gap-4 p-4 border border-green-500 rounded-lg shadow-md"
     >
       <input
@@ -58,8 +58,8 @@ function TaskForm() {
           Outdoor
         </label>
       </div>
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         className="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg cursor-pointer transition-colors w-24"
       >
         Add Task
