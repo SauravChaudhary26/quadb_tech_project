@@ -1,11 +1,12 @@
-// src/components/Task/TaskItem.jsx
 import React from "react";
 import WeatherWidget from "../Weather/WeatherWidget";
 
 function TaskItem({ task, onClick }) {
   return (
     <div
-      className="flex items-center justify-between p-2 border-b cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      className={`flex items-center justify-between p-2 border-b cursor-pointer transition-colors
+        ${task.completed ? "bg-gray-200 line-through text-gray-500" : "hover:bg-gray-100 dark:hover:bg-gray-800"}
+      `}
       onClick={onClick}
     >
       <div>

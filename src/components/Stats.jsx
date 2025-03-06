@@ -7,15 +7,15 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Stats() {
-  // Get tasks array correctly from Redux store
-  const tasks = useSelector((state) => state.tasks.tasks); // ✅ Fix: Access tasks array correctly
+  // Get tasks from Redux store
+  const tasks = useSelector((state) => state.tasks.tasks);
 
-  // Ensure tasks is always an array to prevent runtime errors
+  // Ensure tasks is always an array
   const validTasks = Array.isArray(tasks) ? tasks : [];
 
-  // Count tasks by status (assuming each task has a 'done' property)
-  const pendingCount = validTasks.filter((task) => !task.done).length;
-  const doneCount = validTasks.filter((task) => task.done).length;
+  // Count tasks by completion status (fixed to use 'completed' instead of 'done')
+  const pendingCount = validTasks.filter((task) => !task.completed).length;
+  const doneCount = validTasks.filter((task) => task.completed).length;
 
   const data = {
     labels: ["Pending", "Done"],
