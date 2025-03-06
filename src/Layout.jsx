@@ -1,4 +1,4 @@
-// Layout.jsx
+// src/Layout.jsx
 import { useSelector } from "react-redux";
 import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/sidebar/Sidebar";
@@ -13,12 +13,12 @@ const Layout = () => {
   const location = useLocation();
   const hideLayout = location.pathname === "/login" || location.pathname === "/register";
 
-  // If not on login/register and no user, redirect to login.
+  // If user is not logged in and not on login/register routes, redirect.
   if (!user && !hideLayout) {
     return <Navigate to="/login" />;
   }
 
-  // For login and register, do not render Navbar or Sidebar.
+  // Render login/register pages without Navbar/Sidebar.
   if (hideLayout) {
     return (
       <Routes>
@@ -29,13 +29,13 @@ const Layout = () => {
     );
   }
 
-  // For all other routes, render the inverse L shaped layout.
+  // Authenticated layout with Navbar on top and Sidebar on the left.
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
       <div className="flex flex-grow">
         <Sidebar />
-        <main className="flex-grow p-4">
+        <main className="flex-grow p-4 overflow-hidden">
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
