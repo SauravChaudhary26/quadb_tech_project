@@ -7,7 +7,8 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    dispatch(login({ username: "testuser" }));
+    // Simulated login, ideally fetch user from API
+    dispatch(login({ username: "testuser", photo: "" }));
     navigate("/home");
   };
 
@@ -21,4 +22,3 @@ function Login() {
 }
 
 export default Login;
-

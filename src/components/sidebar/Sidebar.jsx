@@ -7,9 +7,9 @@ import {
   FaUser,
   FaTasks,
 } from "react-icons/fa";
-import profile from "../../assets/profile1.jpg";
+import profile from "../../assets/profile1.png";
 import Stats from "../Stats";
-import { setFilter } from "../../redux/UiSlice"; // Ensure correct casing
+import { setFilter } from "../../redux/uiSlice"; // Ensure correct casing
 
 const Sidebar = () => {
   const dispatch = useDispatch();
