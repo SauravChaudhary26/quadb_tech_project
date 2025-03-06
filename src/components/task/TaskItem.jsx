@@ -1,4 +1,3 @@
-// src/components/Task/TaskItem.jsx
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeTask } from "../../redux/TaskSlice";
@@ -14,7 +13,7 @@ function TaskItem({ task, onClick }) {
 
   return (
     <div
-      className="flex items-center justify-between p-2 border-b cursor-pointer"
+      className="flex items-center justify-between p-2 border-b cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
       onClick={onClick}
     >
       <div>
